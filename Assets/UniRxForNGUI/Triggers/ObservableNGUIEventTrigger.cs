@@ -2,14 +2,17 @@
 
 namespace UniRx.Triggers {
 	public class ObservableNGUIEventTrigger : ObservableTriggerBase {
+        private Collider cachedCollider;
+        private Collider2D cachedCollider2D;
 		bool isColliderEnabled
 		{
 			get
 			{
-				Collider c = GetComponent<Collider>();
-				if (c != null) return c.enabled;
-				Collider2D b = GetComponent<Collider2D>();
-				return (b != null && b.enabled);
+                if (cachedCollider == null) cachedCollider = GetComponent<Collider>();
+                if (cachedCollider != null) return cachedCollider.enabled;
+
+                if (cachedCollider2D == null) cachedCollider2D = GetComponent<Collider2D>();
+                return (cachedCollider2D != null && cachedCollider2D.enabled);
 			}
 		}
 
